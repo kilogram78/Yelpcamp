@@ -1,0 +1,47 @@
+<% layout('Layouts/Boilerplate') %>
+
+    <div id="cluster-map"></div>
+
+    <div class="container mb-5">
+        <div class="col-6 offset-3 ">
+            <h1 class="text-center">All campgrounds</h1>
+            <div class=""><a href="/campgrounds/new">Add campground</a></div>
+
+            <% for ( let campground of campgrounds) { %>
+                <div class="card mb-3 mt-5">
+                    <% if (campground.images && campground.images.length> 0) { %>
+                        <img src="<%=campground.images[0].url%>" class="card-img-top" alt="image">
+                        <% } else { %>
+                            <img src="https://res.cloudinary.com/duttnnzsv/image/upload/v1762682707/YelpCamp/qjddh6htu1uz39dpg8ot.webp"
+                                class="card-img-top" alt="default image">
+                            <% } %>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= campground.title %>
+                                    </h5>
+                                    <p class="card-text">
+                                        <%= campground.description %>
+                                    </p>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            <%= campground.location %>
+                                        </small>
+                                    </p>
+                                    <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">View <%=
+                                            campground.title %>
+                                    </a>
+                                </div>
+                </div>
+
+                <% } %>
+        </div>
+    </div>
+    <!-- prettier-ignore-start -->
+    <script>
+        const maptoken = '<%- process.env.MAPBOX_TOKEN %>';
+        const campgrounds = { features: <% - JSON.stringify(campgrounds) %>}
+    </script>
+    <!-- prettier-ignore-end -->
+
+
+    <script src="/javascripts/clusternap.js"></script>

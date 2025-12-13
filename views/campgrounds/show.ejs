@@ -1,10 +1,10 @@
-<% layout('layouts/Boilerplate') %>
-    <link rel="stylesheet" href="/Stylesheets/stars.css">
+<% layout('layouts/boilerplate') %>
+    <link rel="stylesheet" href="/stylesheets/stars.css">
 
     <div class="row">
         <div class="col-6  mb-5">
 
-            <div id='map' style='width: 400px; height: 300px;'></div>
+            <div id='map' class='campground-map'></div>
 
             <div id="campgroundCarousel" class="carousel slide">
                 <% if (campground.images && campground.images.length> 0) { %>
@@ -124,12 +124,15 @@
                     </p>
         </div>
     </div>
-    <!-- prettier-ignore-start -->
+
+    <script type="application/json" id="campground-data">
+         <%- JSON.stringify(campground) %>
+   </script>
+
     <script>
-        const maptoken = '<%- process.env.MAPBOX_TOKEN %>';
-        const campground = <% - JSON.stringify(campground) %>
+        const maptoken = '<%= mapToken %>';
+        // const campground = JSON.parse(document.getElementById('campground-data').textContent);
     </script>
-    <!-- prettier-ignore-end -->
 
 
 

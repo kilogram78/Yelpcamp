@@ -1,3 +1,5 @@
+const campground = JSON.parse(document.getElementById('campground-data').textContent);
+
 mapboxgl.accessToken = maptoken;
 const map = new mapboxgl.Map({
     container: 'map', // container ID

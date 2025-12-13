@@ -6,7 +6,7 @@ const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
-    res.render('campgrounds/index', { campgrounds })
+    res.render('campgrounds/index', { campgrounds, mapToken: process.env.MAPBOX_TOKEN })
 }
 
 module.exports.renderNewform = (req, res) => {
@@ -53,7 +53,7 @@ module.exports.showCampground = async (req, res) => {
         req.flash('error', 'Cannot find that campground!');
         return res.redirect('/campgrounds');
     }
-    res.render('campgrounds/show', { campground });
+    res.render('campgrounds/show', { campground, mapToken: process.env.MAPBOX_TOKEN });
 }
 
 module.exports.editCampgrounds = async (req, res) => {

@@ -1,6 +1,6 @@
-<% layout('layouts/Boilerplate') %>
+<% layout('layouts/boilerplate') %>
 
-    <div id="cluster-map"></div>
+    <div id="cluster-map" style="height:500px"></div>
 
     <div class="container mb-5">
         <div class="col-6 offset-3 ">
@@ -36,12 +36,12 @@
                 <% } %>
         </div>
     </div>
-    <!-- prettier-ignore-start -->
-    <script>
-        const maptoken = '<%- process.env.MAPBOX_TOKEN %>';
-        const campgrounds = { features: <% - JSON.stringify(campgrounds) %>}
+    <script type="application/json" id="campgrounds-data">
+      <%- JSON.stringify(campgrounds) %>
     </script>
-    <!-- prettier-ignore-end -->
+    <script>
+        const maptoken = '<%= mapToken %>'; // passed from controller
+        const campgrounds = JSON.parse(document.getElementById('campgrounds-data').textContent);
+    </script>
 
-
-    <script src="/javascripts/clusternap.js"></script>
+    <script src="/javascripts/clustermap.js"></script>

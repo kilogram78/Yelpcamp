@@ -3,6 +3,18 @@ const { campgroundSchema, reviewSchema } = require('./schemas');
 const Campground = require('./models/campground');
 const Review = require('./models/review');
 
+// ===== Helper to sanitize inputs =====
+function sanitize(obj) {
+    for (let key in obj) {
+        if (key.includes('$') || key.includes('.')) {
+            obj[key.replace(/\$/g, '_').replace(/\./g, '_')] = obj[key];
+            delete obj[key];
+        } else if (typeof obj[key] === 'object') {
+            sanitize(obj[key]);
+        }
+    }
+}
+
 
 module.exports.isloggedin = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -19,6 +31,7 @@ module.exports.validateCampground = (req, res, next) => {
         throw new ExpressError(msg, 400);
     }
     else {
+        sanitize(req.body);
         next();
     }
 }
@@ -52,6 +65,7 @@ module.exports.validateReview = (req, res, next) => {
         throw new ExpressError(msg, 400);
     }
     else {
+        sanitize(req.body); // <-- sanitize here
         next();
     }
 }

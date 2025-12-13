@@ -118,6 +118,8 @@ app.use(
                 "data:",
                 "https://res.cloudinary.com/duttnnzsv/",
                 "https://images.unsplash.com",
+                "https://yelpcamp-wrh1.onrender.com"  // add this line
+
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },
